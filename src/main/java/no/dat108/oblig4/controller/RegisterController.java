@@ -66,9 +66,10 @@ public class RegisterController {
         if (!ValidatorUtil.password(password)) {
             ra.addFlashAttribute("passwordError", "Invalid password");
             error = true;
-        } else if (!ValidatorUtil.passowrdsMatch(password, repeatPassword)) {
+        }
+        if (!ValidatorUtil.passowrdsMatch(password, repeatPassword)) {
             System.out.println("passowrds don't match!");
-            ra.addFlashAttribute("passwordError", "Passwords don't match");
+            ra.addFlashAttribute("passwordMatchError", "Passwords don't match");
             error = true;
         }
 
@@ -99,10 +100,13 @@ public class RegisterController {
 
         // check if an error was registered
         if (!error) {
-            User user = userService.addUser(phone, firstName, lastName, gender, password);
+            String salt = LoginUtil.generateSalt();
+            String hash = LoginUtil.generateHash(password, salt);
+
+            User user = userService.addUser(phone, firstName, lastName, gender, hash, salt);
             LoginUtil.loggInnBruker(request, phone);
             model.addAttribute("user", user);
-            return "participantView";
+            return "confirmView";
         }
 
 

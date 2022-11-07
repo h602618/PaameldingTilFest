@@ -629,7 +629,3 @@ progress::-moz-progress-bar {
 progress:indeterminate::-moz-progress-bar {
     background-color: var(--accent-bg);
 }
-
-.error {
-    color: red;
-}

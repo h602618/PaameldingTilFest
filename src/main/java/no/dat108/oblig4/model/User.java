@@ -11,9 +11,9 @@ public class User {
     private Integer phone;
     private String first_name;
     private String last_name;
-    private String password;
+    private String hash;
+    private String salt;
     private String gender;
-
 
     public void setPhone(Integer phone) {
         this.phone = phone;
@@ -39,14 +39,6 @@ public class User {
         this.last_name = last_name;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getGender() {
         return gender;
     }
@@ -59,14 +51,33 @@ public class User {
         return String.format("%s %s", first_name, last_name);
     }
 
+    public String getHash() {
+        return hash;
+    }
+
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "phone=" + phone +
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
-                ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
+                ", hash='" + hash + '\'' +
                 ", gender='" + gender + '\'' +
                 '}';
     }
+
+
 }

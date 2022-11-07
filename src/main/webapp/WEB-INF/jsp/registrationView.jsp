@@ -4,7 +4,8 @@
     <head>
         <title>Registation</title>
         <link href="simple.css" rel="stylesheet" type="text/css">
-        <!-- <script src="js/myscript.js" defer></script>  -->
+        <link href="main.css" rel="stylesheet" type="text/css">
+        <script src="js/myscript.js" defer></script>
     </head>
 
     <body>
@@ -13,13 +14,20 @@
         <form method="post">
             <fieldset>
                 <label for="first-name">First name</label>
-                <input id="first-name" name="first-name" title="..." pattern=".*" placeholder="Fill in first name"
+                <input id="first-name" name="first-name"
+                       title="First name can must start with Uppercase then lowercase"
+                       pattern="\s*\p{Lu}\p{Ll}+\s*"
+                       placeholder="Fill in first name"
                        required type="text">
+                <span class="error">${firstNameError}</span>
 
 
                 <label for="last-name">Last name</label>
-                <input id="last-name" name="last-name" title="..." pattern=".*" placeholder="Fill in last name"
+                <input id="last-name" name="last-name"
+                       title="Last name can must start with Uppercase then lowercase"
+                       pattern="\s*\p{Lu}\p{Ll}+\s*" placeholder="Fill in last name"
                        required type="text">
+                <span class="error">${lastNameError}</span>
 
 
                 <label for="phone">Phone (8 digits)</label>
@@ -30,23 +38,30 @@
 
 
                 <label for="password">Password</label>
-                <input id="password" name="password" title="..." pattern=".*" placeholder="Choose a password"
-                       type="password" required>
+                <input id="password" name="password"
+                       title="Must be at least 4 characters, only letters letters and numbers"
+                       pattern="[\p{L}\d]{4,}"
+                       placeholder="Choose a password"
+                       type="password" required oninput="validateStrength(this)">
                 <span class="error">${passwordError}</span>
 
 
                 <label for="repeat-password">Password repeated</label>
-                <input id="repeat-password" name="repeat-password" title="..." pattern=".*"
+                <input id="repeat-password" name="repeat-password"
+                       title="Must match the above password"
+                       pattern="[\p{L}\d]{4,}"
                        placeholder="Repeat the password"
-                       type="password" required>
+                       type="password" required oninput="validatePassword()">
+                <span class="error">${passwordMatchError}</span>
 
 
                 <label>Gender:</label>
                 <input id="gender_male" name="gender" checked="checked" type="radio" value="male">male
                 <input id="gender_female" name="gender" type="radio" value="female">female
+                <span class="error">${genderError}</span>
 
                 <br/><br/>
-                <button type="submit">Sign me up</button>
+                <input type="submit" value="Sign me up"/>
             </fieldset>
         </form>
 

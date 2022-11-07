@@ -28,17 +28,6 @@ public class LoginController {
 
     @GetMapping
     public String showForm() {
-        String pass = "pass";
-        String salt = LoginUtil.generateSalt();
-        String encoded = LoginUtil.generateHash(pass, salt);
-        System.out.println(encoded);
-        String encoded2 = LoginUtil.generateHash(pass, salt);
-        System.out.println(encoded2);
-//        System.out.println(String.format("pass: %s", pass));
-//        System.out.println(String.format("pass: %s", encoded));
-//        System.out.println(String.format("pass: %s", encoded2));
-//        System.out.println(LoginUtil.validate(pass, encoded));
-
         return "loginView";
     }
 
@@ -51,10 +40,11 @@ public class LoginController {
         }
 
         User user = userService.findUserByPhone(phone);
-        if (user == null || !user.getPassword().equals(password)) {
-            ra.addFlashAttribute("redirectMessage", "Invalid username or passowrd");
+        if (user == null || !(LoginUtil.validate(password, user.getHash(), user.getSalt()))) {
+            ra.addFlashAttribute("redirectMessage", "Invalid username or password");
             return "redirect:" + LOGIN_URL;
         }
+
         LoginUtil.loggInnBruker(request, user.getPhone());
         return "redirect:" + PARTICIPANTS_URL;
     }

@@ -4,6 +4,7 @@
     <head>
         <title>Log in</title>
         <link rel="stylesheet" href="simple.css">
+        <link rel="stylesheet" href="main.css">
     </head>
     <body>
         <h2>Log in</h2>
